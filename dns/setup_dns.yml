@@ -1,0 +1,33 @@
+---
+- name: Configure DNS server
+  hosts: dns_servers
+  become: true
+
+  tasks:
+    - name: Install bind9
+      apt:
+        name: bind9
+        state: present
+
+    - name: Configure bind9
+      template:
+        src: named.conf.local.j2
+        dest: /etc/bind/named.conf.local
+      notify:
+        - restart bind9
+
+    - name: Create /etc/bind/zones directory
+      file:
+        path: /etc/bind/zones
+        state: directory
+
+    - name: Copy db.home.master.local.j2
+      template:
+        src: db.home.master.local.j2
+        dest: /etc/bind/zones/db.home.master.local
+
+  handlers:
+    - name: restart bind9
+      service:
+        name: bind9
+        state: restarted
