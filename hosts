@@ -1,0 +1,2 @@
+[group_1]
+master ansible_ssh_host=pi.master ansible_ssh_user=nakamura0907
