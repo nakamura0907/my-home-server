@@ -2,3 +2,5 @@
 - name: group_1
   hosts: group_1
   roles:
+    - role: bind9
+      tags: bind9
