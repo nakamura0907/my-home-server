@@ -3,7 +3,8 @@
   apt:
     name:
       - bind9
-      - bind9-utils
+      # - bind9-utils
+      - dnsutils
     state: latest
     update_cache: true
 
@@ -14,8 +15,6 @@
   with_items:
     - "named.conf.local"
     - "db.home.master.local"
-
-- name: Restart bind9
-  service:
-    name: bind9
-    state: restarted
+  notify: Restart bind9
+  tags:
+    - bind9_config

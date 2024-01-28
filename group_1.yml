@@ -1,6 +1,7 @@
 ---
 - name: group_1
   hosts: group_1
+  become: yes
   roles:
     - role: bind9
       tags: bind9
